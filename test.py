@@ -34,3 +34,19 @@ while stats_ok == False:
 
 print(player_horse)
 
+ai_horse = {
+    "name": "NPC",
+    "speed": 0,
+    "agility": 0
+    }
+
+
+while True:
+    random_speed = random.randint(1, 6)
+    random_agility = 8 - random_speed
+    if 1 <= random_agility <= 6:
+        ai_horse["speed"] = random_speed
+        ai_horse["agility"] = random_agility
+        break
+
+print("NPC:s häst:", ai_horse)

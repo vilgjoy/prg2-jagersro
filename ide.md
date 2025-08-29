@@ -11,3 +11,4 @@ sen rullar spelaren en d6 - agility och den mellanskillnaden dras av från speed
 hästen flyttar sedan slutgiltiga speeden den rundan
 
 hästen ska nå 50 i summa för att komma i mål
+

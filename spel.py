@@ -8,12 +8,14 @@ player_horse = {
     "agility": 0
 }
 
+
 def input_int(prompt):
     while True:
         try:
             return int(input(prompt))
         except ValueError:
             print("Invalid input. Please enter a number.")
+
 
 player_horse["name"] = input('Vad ska din häst heta: ')
 print("Din häst har speed och agility, max 6 i en stat, max totalt 8 totalt")
@@ -31,18 +33,46 @@ while stats_ok == False:
         player_horse["speed"] = 0
         player_horse["agility"] = 0
 
-print("Din häst:", player_horse)
+
+def create_computer_horse():
+    speed = random.randint(2, 6)
+    name_parts = ["ai", "tech", "lord", "evil",
+                  "clanker", "pony", "horse", "oat", "leaf", "ship"]
+    horse = {
+        "name": random.choice(name_parts).capitalize() + "" + random.choice(name_parts),
+        "speed": speed,
+        "agility": 8-speed
+    }
+    return horse
 
 
-ai_horse = {"name": "NPC", "speed": 0, "agility": 0}
+computer_horse = create_computer_horse()
+###################################################################
+print(player_horse)
+print(computer_horse)
 
 
-while True:
-    random_speed = random.randint(1, 6)
-    random_agility = 8 - random_speed
-    if 1 <= random_agility <= 6:
-        ai_horse["speed"] = random_speed
-        ai_horse["agility"] = random_agility
-        break
+def game_turn():
+    player_speed = player_horse["speed"] + random.randint(1, 6)
+    player_agility = player_horse["agility"] - random.randint(1, 6)
+    if player_agility >= 0:
+        player_speed -= player_agility
+    computer_speed = computer_horse["speed"] + random.randint(1, 6)
+    computer_agility = random.randint(1, 6) - computer_horse["agility"]
+    if computer_agility >= 0:
+        computer_speed -= computer_agility
+    print(
+        f"Spelarens häst {player_horse['name']} springer {player_speed} steg")
+    print(
+        f"Datorns häst {computer_horse['name']} springer {computer_speed} steg")
+    return [player_speed, computer_speed]
 
-print("NPC:s häst:", ai_horse)
+
+player_steps = 0
+computer_steps = 0
+for i in range(10):
+    steps = game_turn()
+    player_steps += steps[0]
+    computer_steps += steps[1]
+
+print(f"Antal steg: player {player_steps}, computer {computer_steps}")
